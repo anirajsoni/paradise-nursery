@@ -1,16 +1,20 @@
-import { useDispatch } from "react-redux";
-import { increaseQty, decreaseQty, removeFromCart } from "../store/cartSlice";
+// src/components/CartItem.js
+import React from 'react';
 
-export default function CartItem({ item }) {
-  const dispatch = useDispatch();
-
+const CartItem = ({ item, increaseQuantity, decreaseQuantity, removeFromCart }) => {
   return (
-    <div>
+    <div className="cart-item">
+      <img src={item.thumbnail} alt={item.name} />
       <h4>{item.name}</h4>
-      <p>Qty: {item.quantity}</p>
-      <button onClick={() => dispatch(increaseQty(item.id))}>+</button>
-      <button onClick={() => dispatch(decreaseQty(item.id))}>-</button>
-      <button onClick={() => dispatch(removeFromCart(item.id))}>Remove</button>
+      <p>${item.price.toFixed(2)}</p>
+      <div>
+        <button onClick={() => decreaseQuantity(item.id)}>-</button>
+        <span>{item.quantity}</span>
+        <button onClick={() => increaseQuantity(item.id)}>+</button>
+        <button onClick={() => removeFromCart(item.id)}>Remove</button>
+      </div>
     </div>
   );
-}
+};
+
+export default CartItem;
